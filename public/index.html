@@ -49,13 +49,14 @@
         <div class="sidebar-item"><span class="icon">&#127760;</span> CDN Global <span class="dot green"></span></div>
       </div>
       <div class="sidebar-section">
-        <h4>Ping API</h4>
+        <h4>Consola</h4>
         <div style="padding:0 8px">
           <div style="text-align:center;margin-bottom:12px">
             <div id="pingCount" style="font-size:32px;font-weight:700;color:var(--blue-400)">0</div>
-            <div style="font-size:10px;color:var(--text-dim);letter-spacing:2px">PETICIONES</div>
+            <div style="font-size:10px;color:var(--text-dim);letter-spacing:2px">PING EXITOSOS</div>
           </div>
-          <button class="btn btn-primary" style="width:100%" onclick="App.ping()">&#9654; Ejecutar Ping</button>
+          <button class="btn btn-primary" style="width:100%;margin-bottom:8px" onclick="App.ping()">&#9654; Ejecutar Ping</button>
+          <button class="btn btn-outline" style="width:100%" onclick="App.consoleCmd('clear')">&#128465; Limpiar Consola</button>
         </div>
       </div>
     </aside>
@@ -91,17 +92,40 @@
       </div>
 
       <div class="two-col">
-        <div class="panel">
-          <h3>&#128268; Probar API</h3>
-          <div class="terminal">
-            <div class="terminal-bar">
-              <div class="dot-t r"></div>
-              <div class="dot-t y"></div>
-              <div class="dot-t g"></div>
+        <div class="panel" style="padding:0;overflow:hidden">
+          <div class="console">
+            <div class="console-titlebar">
+              <div class="console-dots">
+                <span class="dot-close"></span>
+                <span class="dot-min"></span>
+                <span class="dot-max"></span>
+              </div>
+              <div class="console-title">cuchipu@cloud &mdash; <span>/api/ping</span></div>
+              <div style="width:52px"></div>
             </div>
-            <div class="terminal-body" id="terminalBody">
-              <div class="terminal-line"><span class="t-dim">Esperando peticion...</span></div>
+            <div class="console-body" id="consoleBody">
+              <div class="console-welcome">
+                <strong>CUCHIPU CLOUD TERMINAL v2.0</strong><br>
+                Sistema de diagnostico API. Escriba comandos o use los botones.<br>
+                Escriba <strong>help</strong> para ver comandos disponibles.
+              </div>
+              <div class="console-history" id="consoleHistory"></div>
+              <div class="console-input-line">
+                <span class="console-prompt"><span class="user">cuchipu</span><span class="at">@</span><span class="host">cloud</span><span class="path"> ~</span><span class="sym"> $ </span></span>
+                <span class="console-cursor"></span>
+              </div>
             </div>
+            <div class="console-statusbar">
+              <div class="status-online"><span class="dot-live"></span> CONECTADO</div>
+              <span id="consoleCount">0 comandos ejecutados</span>
+              <span>bash</span>
+            </div>
+          </div>
+          <div class="console-actions" style="padding:0 26px 20px">
+            <button class="btn-console run" onclick="App.ping()">&#9654; ping</button>
+            <button class="btn-console" onclick="App.consoleCmd('stats')">stats</button>
+            <button class="btn-console" onclick="App.consoleCmd('services')">services</button>
+            <button class="btn-console" onclick="App.consoleCmd('clear')">clear</button>
           </div>
         </div>
 
@@ -141,6 +165,7 @@
   <script>
     App.initNav('/');
     App.loadStats();
+    App.initConsoleInput();
     setInterval(() => App.loadStats(), 5000);
   </script>
 </body>
