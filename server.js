@@ -1,8 +1,11 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
-  res.send('Bienvenido a los servicios de Cuchipu Cloud - Sistema En Línea');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/api/ping', (req, res) => {
